@@ -33,7 +33,6 @@
       text-align: center;
       font-family: Arial;
       margin: 0;
-
       opacity: 0;
       transform: translateY(20px);
       animation: fadeIn 0.8s ease forwards;
@@ -95,13 +94,8 @@
       border: 2px solid white;
     }
 
-    .btn:hover {
-      transform: scale(1.05);
-    }
-
-    .btn:active {
-      transform: scale(0.95);
-    }
+    .btn:hover { transform: scale(1.05); }
+    .btn:active { transform: scale(0.95); }
 
     .version {
       margin-top: 10px;
@@ -193,8 +187,9 @@
     .name-toggle {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
       margin-top: 10px;
+      margin-left: -20px;
     }
 
     .switch {
@@ -235,6 +230,15 @@
 
     input:checked + .slider::before {
       transform: translateX(20px);
+    }
+
+    .anon-text {
+      margin-left: 50px;
+      position: relative;
+      top: -18px;
+      text-align: left;
+      font-size: 14px;
+      color: #ccc;
     }
 
   </style>
@@ -293,13 +297,14 @@
 
     <form id="contactForm">
 
-      <div class="name-toggle">
-        <label class="switch">
-          <input type="checkbox" id="anonToggle">
-          <span class="slider"></span>
-        </label>
-        <span>Nombre anónimo</span>
-      </div>
+<div class="name-toggle">
+  <label class="switch">
+    <input type="checkbox" id="anonToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<div class="anon-text">Modo anónimo</div>
 
       <input type="text" id="nameInput" name="nombre" placeholder="Tu nombre" required>
 
@@ -372,6 +377,13 @@
     const statusMsg = document.getElementById("statusMsg");
     const btn = document.getElementById("sendBtn");
 
+    function hideMessage() {
+      setTimeout(() => {
+        statusMsg.classList.remove("show");
+        statusMsg.innerText = "";
+      }, 5000);
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -403,6 +415,7 @@
       }
 
       btn.classList.remove("sending");
+      hideMessage();
     });
 
     const toggle = document.getElementById("anonToggle");
