@@ -156,13 +156,15 @@
   <div id="loader">  
     Cargando...  
   </div>  
+  
+  <audio id="clickSound" src="Archivos/audio/click.mp3" preload="auto"></audio>
     
   <img class="app-img" src="Archivos/imagenes/Icon.png">  
-  
+
   <h1>✨ APKHub ✨</h1>  
-  
+
   <p>última versión aquí:</p>  
-  
+
   <div class="buttons">  
     <a class="btn download" href="Archivos/APK/APKHub v2.0.apk" download>  
       Descargar  
@@ -182,7 +184,7 @@
   </div>  
 
   <p style="margin-top:20px; font-size:12px;">  
-    ⚠️ Activa "Descargar apps de sitios desconocidos" para instalar  
+    ⚠️ Activa "Descargar apps de sitios desconocidos" para instalarlo  
   </p>  
 
   <div class="info">  
@@ -229,7 +231,6 @@
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       ctx.fillStyle = "white";
 
       stars.forEach(star => {
@@ -253,6 +254,19 @@
     window.addEventListener("resize", () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+    });
+
+    // SONIDO OPTIMIZADO
+    const clickSound = document.getElementById("clickSound");
+    let lastClickTime = 0;
+
+    document.addEventListener("click", () => {
+      const now = Date.now();
+      if (now - lastClickTime > 150) { // evita spam
+        clickSound.currentTime = 0;
+        clickSound.play();
+        lastClickTime = now;
+      }
     });
   </script>  
 
